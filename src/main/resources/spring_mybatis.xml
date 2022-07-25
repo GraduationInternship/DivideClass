@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--扫描注解所在的包-->
+    <context:component-scan base-package="com.fouronesix"/>
+
+    <!--引入外部定义数据库连接信息文件：db.properties-->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--定义声明数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="${mysql_driver}"/>
+        <property name="url" value="${mysql_url}"/>
+        <property name="username" value="${mysql_user}"/>
+        <property name="password" value="${mysql_password}"/>
+    </bean>
+
+    <!--定义SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--指定映射文件在哪里-->
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+        <property name="plugins">
+
+            <set>
+                <!--配置分页插件pageHelper-->
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <props>
+                            <prop key="helperDialect">mysql</prop>
+                        </props>
+                    </property>
+                </bean>
+            </set>
+        </property>
+    </bean>
+
+    <!--扫描dao包，把下面所有操作数据库的接口都注册到容器-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.fouronesix.dao"/>
+    </bean>
+</beans>
