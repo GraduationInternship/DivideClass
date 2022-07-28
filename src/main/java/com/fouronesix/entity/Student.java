@@ -1,5 +1,3 @@
-package com.fouronesix.entity;public class Student {
-
 package com.fouronesix.entity;
 
 import lombok.Data;
@@ -12,5 +10,4 @@ public class Student {
     private String sex;
     private Integer classCode;
     private String className;
-
 }
