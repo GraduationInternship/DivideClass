@@ -53,7 +53,7 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-user"></label>
-                    <select name="userType" lay-verify="required">
+                    <select name="adminType" lay-verify="required">
                         <option value="">请选择用户类型</option>
                         <option value="1">管理员</option>
                         <option value="2">学生</option>
@@ -90,7 +90,7 @@
                 layer.msg('密码不能为空');
                 return false;
             }
-            if (data.userType == '') {
+            if (data.type == '') {
                 layer.msg('类型不能为空');
                 return false;
             }

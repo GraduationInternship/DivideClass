@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.fouronesix</groupId>
-  <artifactId>DivideClasses</artifactId>
+  <artifactId>DivideClass</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>DivideClasses Maven Webapp</name>
+  <name>DivideClass Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -159,6 +159,6 @@
   </dependencies>
 
   <build>
-    <finalName>DivideClasses</finalName>
+    <finalName>DivideClass</finalName>
   </build>
 </project>
