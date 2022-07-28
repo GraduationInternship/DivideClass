@@ -158,31 +158,6 @@ public class StudentController {
         return map;
     }
 
-    /*修改密码*/
-    @RequestMapping("/updatePwdSubmit")
-    @ResponseBody
-    public Map<String, Object> updatePwdSubmit(Integer id,String oldPwd,String newPwd){
-
-        Map<String, Object> map = new HashMap<>();
-        if(newPwd.equals(oldPwd)){
-            map.put("code",1);
-            map.put("msg","新密码和原密码一致！不能修改！！！");
-        }else {
-            Boolean result = studentService.updateAdminPassword(id, newPwd, oldPwd);
-
-            if(result==true){
-
-                map.put("code",0);
-            }
-            else {
-                map.put("msg","修改失败！！");
-                map.put("code",-1);
-            }
-        }
-        return map;
-    }
-
-
     /*搜索用户*/
     @RequestMapping("/searchStudent")
     @ResponseBody
