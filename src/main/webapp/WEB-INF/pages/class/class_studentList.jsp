@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
@@ -27,19 +27,24 @@
 
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
-    llayui.use(['form', 'table'], function () {
+    layui.use(['form', 'table'], function () {
         var $ = layui.jquery,
             form = layui.form,
+            classCode = ${classCode},
             table = layui.table;
 
         table.render({
             elem: '#class_studentTable',
             url: '/class_student',
+            where:{
+                "classCode":classCode
+            },
             cols: [[
-                {field: 'stuNum', width: 150, title: '学号'},
-                {field: 'stuName', width: 150, title: '姓名'},
-                {field: 'sex', width: 150, title: '性别'},
-                {field:'classCode',width: 150,title: '班级编号'}
+                {field: 'stuNum', width: 200, title: '学号'},
+                {field: 'stuName', width: 200, title: '姓名'},
+                {field: 'sex', width: 200, title: '性别'},
+                {field: 'password', width: 200, title: '密码'},
+                {field:'classCode',width: 200,title: '班级编号'}
             ]],
             limits: [5, 10, 15, 20, 25, 50, 100],
             limit: 15,  <!--默认显示15条-->
