@@ -27,7 +27,7 @@
                 管理员类型：
                 <div class="layui-inline">
                     <select id="adminType" name="adminType" class="layui-input">
-                        <option value="">请选择</option>
+                        <option value="-1">请选择</option>
                         <option value="0">普通管理员</option>
                         <option value="1">高级管理员</option>
                     </select>

@@ -15,6 +15,12 @@ public class LoginController {
     @Autowired
     AdminService adminService;
 
+    @RequestMapping("/toLogin")
+    public String toLogin()
+    {
+        return "login";
+    }
+
     /*登录*/
     @RequestMapping("/login")
     public String login(Admin admin, HttpSession session, Model model){

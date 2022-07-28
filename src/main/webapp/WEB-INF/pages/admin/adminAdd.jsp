@@ -1,6 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -35,7 +35,7 @@
         <label class="layui-form-label required">管理员类型</label>
         <div class="layui-input-block">
             <select class="layui-input" name="adminType" id="adminType">
-                <option value=""></option>
+                <option value="-1"></option>
                 <option value="0">普通管理员</option>
                 <option value="1">高级管理员</option>
             </select>
@@ -59,7 +59,7 @@
             var datas=data.field;//form单中的数据信息
             //向后台发送数据提交添加
             $.ajax({
-                url:"addAdminSubmit",
+                url:"/addAdminSubmit",
                 type:"POST",
                 data:datas,
                 success:function(result){
@@ -72,6 +72,8 @@
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
                         })
+                    }else if(result.code==1){
+                        layer.msg("用户名已经存在！！请重新输入一个用户名");
                     }else{
                          layer.msg("添加失败");
                     }

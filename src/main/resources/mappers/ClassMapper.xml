@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fouronesix.dao.ClassMapper">
+
+<!--    输入班级编号模糊搜索，下拉框选择班级名称-->
+    <select id="searchClass" resultType="com.fouronesix.entity.Class">
+        select * from class
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="classCode!=null">
+                and classCode like '%${classCode}%'
+            </if>
+            <if test="className!=null">
+                and className=#{className}
+            </if>
+        </trim>
+    </select>
+
+<!--    根据班级编号删除班级-->
+    <delete id="deleteClass" parameterType="list">
+        delete from class where classCode in
+        <foreach collection="list" open="(" separator="," close=")" item="classCode">
+            #{classCode}
+        </foreach>
+        and sum=0
+    </delete>
+
+<!--    <resultMap id="stuMap" type="Student">-->
+
+<!--&lt;!&ndash;        班级&ndash;&gt;-->
+<!--        <result property="classCode" column="classCode"/>-->
+<!--        <result property="className" column="className"/>-->
+<!--        <result property="sum" column="sum"/>-->
+
+<!--&lt;!&ndash;        班级类内学生集合的属性&ndash;&gt;-->
+<!--        <collection property="studentList" ofType="Student" javaType="list">-->
+<!--            <result property="stuNum" column="stuNum"/>-->
+<!--            <result property="stuName" column="stuName"/>-->
+<!--            <result property="password" column="password"/>-->
+<!--            <result property="sex" column="sex"/>-->
+<!--            <result property="s_classCode" column="classCode"/>-->
+<!--        </collection>-->
+
+<!--    </resultMap>-->
+
+    <!--查询该班级所有学生信息-->
+    <select id="getStudentByClassCode" parameterType="Integer" resultType="com.fouronesix.entity.Student">
+        select * from student where classCode = #{classCode}
+    </select>
+
+</mapper>

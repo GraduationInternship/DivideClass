@@ -26,7 +26,6 @@ public class AdminService {
         return adminList;
     }
 
-
     /*验证登录*/
     public Boolean checkLogin(Admin admin, HttpSession session){
 
@@ -43,5 +42,69 @@ public class AdminService {
             return false;
         }
 
+    }
+    /*删除用户记录*/
+    public Boolean deleteAdmin(List<Integer> ids){
+
+        int i = adminMapper.deleteAdmin(ids);
+
+        if(i>0){
+            /*表示删除成功*/
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+
+    /*添加用户信息*/
+    public int addAdmin(Admin admin){
+
+        /*0代表添加成功，1代表用户名已存在，-1代表添加失败*/
+
+        /*(1)根据用户名查询用户*/
+        List<Admin> adminList = adminMapper.getAdminByName(admin.getUsername());
+
+        /*(2)判断数据库内是否存在和新添加用户的用户名重复*/
+        if(adminList!=null&&adminList.size()>0){
+            /*用户名已经存在*/
+            return 1;
+        }
+        else {
+            /*调用adminMapper内的新增一条用户记录的方法*/
+            int i = adminMapper.addAdmin(admin);
+            if(i>0){
+                return 0;
+            }
+            else {
+                return -1;
+            }
+
+        }
+    }
+
+
+
+    /*修改密码*/
+    public Boolean updateAdminPassword(Integer id,String newPassword,String oldPassword){
+
+        int i = adminMapper.updateAdminPassword(id, newPassword, oldPassword);
+
+        if(i>0){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    /*搜索用户*/
+    public List<Admin> searchAdmin(String username,Integer adminType,Integer page,Integer limit){
+
+        PageHelper.startPage(page,limit);
+        return adminMapper.searchAdmin(username, adminType);
     }
 }

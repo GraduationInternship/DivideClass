@@ -8,4 +8,26 @@
     <select id="getAllAdmin" resultType="com.fouronesix.entity.Admin">
         select * from admin
     </select>
-</mapper>
+
+        <!--3.删除管理员-->
+<delete id="deleteAdmin" parameterType="list">
+delete from admin where id in
+<foreach collection="list" open="(" separator="," close=")" item="id">
+    #{id}
+</foreach>
+</delete>
+
+
+        <!--7.搜索用户-->
+<select id="searchAdmin" resultType="com.fouronesix.entity.Admin">
+select * from admin
+<trim prefix="where" prefixOverrides="and|or">
+    <if test="username!=null">
+        and username like concat('%',#{username},'%')
+    </if>
+    <if test="adminType!=null">
+        and adminType=#{adminType}
+    </if>
+</trim>
+</select>
+        </mapper>

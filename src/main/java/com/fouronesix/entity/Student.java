@@ -10,5 +10,4 @@ public class Student {
     private String sex;
     private Integer classCode;
     private String className;
-
 }
