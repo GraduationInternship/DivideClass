@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fouronesix.dao.StudentMapper">
+    <!--1.查询所有学生-->
+    <select id="getAllStudent" resultType="com.fouronesix.entity.Student">
+        select * from student
+    </select>
+
+    <!--3.删除学生-->
+    <delete id="deleteStudent" parameterType="list">
+        delete from student where stuNum in
+        <foreach collection="list" open="(" separator="," close=")" item="stuNum">
+            #{stuNum}
+        </foreach>
+    </delete>
+
+    <!--4.减少班级人数-->
+    <update id="reduceClassSum" parameterType="list">
+        update class set sum=sum-1  where classCode in
+        <foreach collection="list" open="(" separator="," close=")" item="stuNum">
+            (select cb.classCode from (select (s.classCode) classCode from class c,student s where s.stuNum=#{stuNum} and s.classCode=c.classCode) cb)
+        </foreach>
+    </update>
+
+    <update id="updateStudent" >
+        update student
+        <trim prefix="set" prefixOverrides=",">
+            <if test="stuNum!=className">
+               , stuNum=#{stuNum}
+            </if>
+            <if test="stuName!=null">
+                , stuName=#{stuName},password=#{password},sex=#{sex},classCode=#{classCode} where stuNum=#{className}
+            </if>
+        </trim>
+    </update>
+
+    <!--7.搜索用户-->
+    <select id="searchStudent" resultType="com.fouronesix.entity.Student">
+        select * from student
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="stuNum!=null">
+                and stuNum like concat('%',#{stuNum},'%')
+            </if>
+            <if test="stuName!=null">
+                and stuName like concat('%',#{stuName},'%')
+            </if>
+            <if test="classCode!=null">
+                and classCode=#{classCode}
+            </if>
+        </trim>
+    </select>
+</mapper>
