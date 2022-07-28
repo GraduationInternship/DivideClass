@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>图书管理系统</title>
+    <title>分班管理系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -53,7 +53,7 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-user"></label>
-                    <select name="adminType" lay-verify="required">
+                    <select name="userType" lay-verify="required">
                         <option value="">请选择用户类型</option>
                         <option value="1">管理员</option>
                         <option value="2">学生</option>
@@ -90,7 +90,7 @@
                 layer.msg('密码不能为空');
                 return false;
             }
-            if (data.type == '') {
+            if (data.userType == '') {
                 layer.msg('类型不能为空');
                 return false;
             }
