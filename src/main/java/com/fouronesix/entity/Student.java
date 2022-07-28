@@ -1,3 +1,5 @@
+package com.fouronesix.entity;public class Student {
+
 package com.fouronesix.entity;
 
 import lombok.Data;
