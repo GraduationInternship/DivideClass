@@ -1,4 +1,4 @@
-package com.fouronesix.entity;public class Class {
+package com.fouronesix.entity;
 
 package com.fouronesix.entity;
 
