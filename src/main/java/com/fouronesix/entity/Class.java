@@ -1,7 +1,5 @@
 package com.fouronesix.entity;
 
-package com.fouronesix.entity;
-
 import lombok.Data;
 
 @Data
